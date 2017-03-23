@@ -70,6 +70,17 @@ function solvePuzzle() {
 		//console.log(k, cmd, tmp);
 	}
 
+	// get each user defined number square and add it as a constraint
+	$(".userNumber").each( (a,b) => {
+		console.log(b.id , b.innerHTML);
+		puz.push( ['eq', b.id, parseInt(b.innerHTML)] );
+	} );	
+
+	// this code would loop through all values, and get number,
+	// which works the first time, but after the puzzle
+	// is filled in with a solution, no longer works well, need
+	// to only pick up user defined numbers
+	/*
 	letters.forEach( (letter) => {
 			numbers.forEach ( (number) => {
 				var tmp = $("#" + letter + number).html();
@@ -78,6 +89,7 @@ function solvePuzzle() {
 				}
 			});
 		});
+	*/
 
 	console.log("puzzle:", puz);
 
@@ -99,6 +111,9 @@ function solvePuzzle() {
 			allSolutions = d;
 			currentSolution = 0;
 			fillInSolution();
+
+			// this code will merge all solutions into one solution with multiple
+			// numbers, not very useful really
 			/*
 			d.forEach( (el) => {
 				//console.log( typeof(el) );
@@ -137,10 +152,15 @@ function updateNumBlock(t) {
 
 	if (tmp == "") { 
 		$("#" + t).html("1");
+		$("#" + t).addClass("userNumber");
 	} else {
+		$("#" + t).addClass("userNumber");
 		var n = parseInt(tmp);
 		n++;
-		if (n > puzSize) { n = "";}
+		if (n > puzSize) { 
+			n = "";
+			$("#" + t).removeClass("userNumber");
+		}
 		$("#" + t).html(n);
 
 	}

@@ -18,6 +18,10 @@ td {
 }
 
 
+.userNumber {
+	color: red;
+	font-weight: bold;
+}
 
 .vconstraint,.hconstraint {
 	padding-top: 12px;
